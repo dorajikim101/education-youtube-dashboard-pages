@@ -26,7 +26,18 @@ npm run dev
 npm run build
 ```
 
+## 현재 ingest 대상
+- 입시덕후
+- 교육대기자TV
+- EBSi (교과 개념 설명 제외)
+- 공부의신 파인만
+
+채널 seed 설정:
+- `config/channels.seed.json`
+- `docs/channel-scope.md`
+
 ## 다음 단계
+- 채널 feed 수집기와 `config/channels.seed.json` 연결
 - mock data를 실제 ingest 결과로 교체
 - claim clustering / topic trend 반영
 - 채널 팔로우 상태 저장

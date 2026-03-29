@@ -129,13 +129,13 @@ export const headlines: HeadlineItem[] = [
     id: '3',
     headline: 'IB 영어는 암기보다 글쓰기 구조 훈련이 체감 성과를 가른다는 해석',
     dek: 'IB 관련 채널들에서 읽기량 자체보다 논지 구성과 서술 구조 훈련이 성적 차이를 만든다는 설명이 반복된다.',
-    channel: 'IB Compass',
+    channel: '공부의신 파인만',
     publishedAt: '2026-03-26',
     tags: ['대상:IB', '영어', 'IB교육'],
     followed: false,
-    youtubeUrl: 'https://www.youtube.com/watch?v=demo3',
+    youtubeUrl: 'https://www.youtube.com/@finemanlab',
     scores: { fresh: 84, valid: 80, heat: 62, controversy: 44 },
-    featuredReason: 'IB 관심층에게 실질적 전략을 제시하는 드문 영상',
+    featuredReason: '공부 전략형 채널 중 정보성 주장 구조를 테스트하기 좋은 초기 샘플',
     claims: [
       {
         title: 'IB 영어는 읽기량보다 논증 구조가 성적에 직접적이다',

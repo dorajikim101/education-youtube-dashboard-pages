@@ -46,7 +46,7 @@ export default function App() {
         <div>
           <p className="eyebrow">Education YouTube Intelligence</p>
           <h1>교육 유튜브 인텔 대시보드</h1>
-          <p className="subcopy">업데이트된 주제를 뉴스 헤드라인처럼 훑고, 관심 있는 카드를 눌러 바로 아래에서 핵심 주장과 타임스탬프를 확인하는 GitHub Pages 프로토타입.</p>
+          <p className="subcopy">업데이트된 주제를 뉴스 헤드라인처럼 훑고, 관심 있는 카드를 눌러 바로 아래에서 핵심 주장과 타임스탬프를 확인하는 GitHub Pages 프로토타입. 현재 ingest 대상은 입시덕후, 교육대기자TV, EBSi, 공부의신 파인만 4개 채널만 설정되어 있습니다.</p>
         </div>
       </header>
 

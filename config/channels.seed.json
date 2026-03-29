@@ -1,0 +1,46 @@
+{
+  "version": 1,
+  "mode": "watch-latest-then-forward",
+  "channels": [
+    {
+      "name": "입시덕후",
+      "youtubeUrl": "https://www.youtube.com/@ipduck_official",
+      "enabled": true,
+      "includeCategories": ["입시정보", "교육이슈", "학생생활", "학습전략", "학교트렌드"],
+      "excludeCategories": ["교과개념", "문제풀이", "강의콘텐츠", "과목해설"],
+      "startFrom": "latest"
+    },
+    {
+      "name": "교육대기자TV",
+      "youtubeUrl": "https://www.youtube.com/@daegizatv",
+      "enabled": true,
+      "includeCategories": ["교육정보", "학부모정보", "입시전략", "교육이슈", "학습조언"],
+      "excludeCategories": ["교과개념", "문제풀이", "강의콘텐츠", "과목해설"],
+      "startFrom": "latest"
+    },
+    {
+      "name": "EBSi",
+      "youtubeUrl": "https://www.youtube.com/@EBS_i",
+      "enabled": true,
+      "includeCategories": ["입시정보", "수험전략", "학습조언", "학생정보"],
+      "excludeCategories": ["교과개념", "문제풀이", "강의콘텐츠", "과목해설", "개념설명"],
+      "startFrom": "latest",
+      "notes": "교과 개념 설명/강의형 콘텐츠는 제외"
+    },
+    {
+      "name": "공부의신 파인만",
+      "youtubeUrl": "https://www.youtube.com/@finemanlab",
+      "enabled": true,
+      "includeCategories": ["공부법", "학습전략", "동기관리", "입시조언"],
+      "excludeCategories": ["교과개념", "문제풀이", "강의콘텐츠", "과목해설"],
+      "startFrom": "latest"
+    }
+  ],
+  "ingestRules": {
+    "backfill": false,
+    "initialFetchPerChannel": 1,
+    "autoFetchNewUploads": true,
+    "includeOnlyAdviceOrInfo": true,
+    "excludeSubjectTeachingContent": true
+  }
+}
