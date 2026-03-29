@@ -38,7 +38,6 @@ export default function App() {
     return sorted
   }, [sort, grade, subject, topic, followedOnly])
 
-  const selected = filtered.find((item) => item.id === selectedId) ?? filtered[0] ?? headlines[0]
   const featured = headlines.filter((item) => item.featuredReason).slice(0, 2)
 
   return (
@@ -47,7 +46,7 @@ export default function App() {
         <div>
           <p className="eyebrow">Education YouTube Intelligence</p>
           <h1>교육 유튜브 인텔 대시보드</h1>
-          <p className="subcopy">영상 목록이 아니라, 지금 떠오르는 교육 주장과 변화만 빠르게 읽고 관심 있는 주장만 타임스탬프로 확인하는 GitHub Pages 프로토타입.</p>
+          <p className="subcopy">업데이트된 주제를 뉴스 헤드라인처럼 훑고, 관심 있는 카드를 눌러 바로 아래에서 핵심 주장과 타임스탬프를 확인하는 GitHub Pages 프로토타입.</p>
         </div>
       </header>
 
@@ -95,7 +94,7 @@ export default function App() {
         </div>
       </section>
 
-      <main className="layout">
+      <main className="layout expanded-layout">
         <section className="feed-column">
           <div className="section-title-row">
             <h2>업데이트된 주제</h2>
@@ -103,31 +102,76 @@ export default function App() {
           </div>
 
           <div className="feed-list">
-            {filtered.map((item) => (
-              <button
-                key={item.id}
-                className={`headline-card card ${selected.id === item.id ? 'selected' : ''}`}
-                onClick={() => setSelectedId(item.id)}
-              >
-                <div className="headline-topline">
-                  <span>{item.channel}</span>
-                  <span>{item.publishedAt}</span>
-                </div>
-                <h3>{item.headline}</h3>
-                <p>{item.dek}</p>
-                <div className="tag-row compact">
-                  {item.tags.map((tag) => (
-                    <span key={tag} className="tag">{tag}</span>
-                  ))}
-                  {item.followed ? <span className="follow-pill">팔로우</span> : null}
-                </div>
-                <div className="score-row">
-                  <span className={`score ${scoreTone(item.scores.fresh)}`}>Fresh {item.scores.fresh}</span>
-                  <span className={`score ${scoreTone(item.scores.valid)}`}>Valid {item.scores.valid}</span>
-                  <span className={`score ${scoreTone(item.scores.heat)}`}>Heat {item.scores.heat}</span>
-                </div>
-              </button>
-            ))}
+            {filtered.map((item) => {
+              const expanded = selectedId === item.id
+              return (
+                <article key={item.id} className={`headline-card card ${expanded ? 'selected' : ''}`}>
+                  <button className="headline-button" onClick={() => setSelectedId(expanded ? '' : item.id)}>
+                    <div className="headline-topline">
+                      <span>{item.channel}</span>
+                      <span>{item.publishedAt}</span>
+                    </div>
+                    <div className="headline-main-row">
+                      <div>
+                        <h3>{item.headline}</h3>
+                        <p>{item.dek}</p>
+                      </div>
+                      <span className="expand-indicator">{expanded ? '−' : '+'}</span>
+                    </div>
+                    <div className="tag-row compact">
+                      {item.tags.map((tag) => (
+                        <span key={tag} className="tag">{tag}</span>
+                      ))}
+                      {item.followed ? <span className="follow-pill">팔로우</span> : null}
+                    </div>
+                    <div className="score-row">
+                      <span className={`score ${scoreTone(item.scores.fresh)}`}>Fresh {item.scores.fresh}</span>
+                      <span className={`score ${scoreTone(item.scores.valid)}`}>Valid {item.scores.valid}</span>
+                      <span className={`score ${scoreTone(item.scores.heat)}`}>Heat {item.scores.heat}</span>
+                    </div>
+                  </button>
+
+                  {expanded ? (
+                    <div className="expanded-panel">
+                      <div className="expanded-top">
+                        <div className="detail-meta">
+                          <span>Controversy {item.scores.controversy}</span>
+                          <span>핵심 주장 {item.claims.length}개</span>
+                        </div>
+                        <a className="video-link" href={item.youtubeUrl} target="_blank" rel="noreferrer">
+                          영상 열기
+                        </a>
+                      </div>
+
+                      <div className="claims-list in-card">
+                        {item.claims.map((claim, index) => (
+                          <article key={claim.title} className="claim-card">
+                            <div className="claim-order">0{index + 1}</div>
+                            <div className="claim-body">
+                              <h4>{claim.title}</h4>
+                              <p>{claim.summary}</p>
+                              <div className="claim-meta">
+                                <span>대상: {claim.target}</span>
+                                <a href={`${item.youtubeUrl}&t=${claim.seconds}s`} target="_blank" rel="noreferrer">
+                                  {claim.timestamp}부터 보기
+                                </a>
+                              </div>
+                              <div className="evidence-box">
+                                <strong>근거</strong>
+                                <p>{claim.evidence}</p>
+                                {claim.conflict ? (
+                                  <p className="conflict"><strong>충돌 주장</strong> {claim.conflict}</p>
+                                ) : null}
+                              </div>
+                            </div>
+                          </article>
+                        ))}
+                      </div>
+                    </div>
+                  ) : null}
+                </article>
+              )
+            })}
           </div>
         </section>
 
@@ -165,52 +209,6 @@ export default function App() {
                 </div>
               </article>
             ))}
-          </section>
-
-          <section className="detail card">
-            <div className="section-title-row">
-              <h2>핵심 주장</h2>
-              <span>{selected.claims.length}개</span>
-            </div>
-            <div className="detail-head">
-              <h3>{selected.headline}</h3>
-              <p>{selected.dek}</p>
-              <div className="detail-actions">
-                <a href={selected.youtubeUrl} target="_blank" rel="noreferrer">영상 열기</a>
-              </div>
-            </div>
-            <div className="detail-meta">
-              <span>채널 {selected.channel}</span>
-              <span>Fresh {selected.scores.fresh}</span>
-              <span>Valid {selected.scores.valid}</span>
-              <span>Heat {selected.scores.heat}</span>
-              <span>Controversy {selected.scores.controversy}</span>
-            </div>
-
-            <div className="claims-list">
-              {selected.claims.map((claim, index) => (
-                <article key={claim.title} className="claim-card">
-                  <div className="claim-order">0{index + 1}</div>
-                  <div className="claim-body">
-                    <h4>{claim.title}</h4>
-                    <p>{claim.summary}</p>
-                    <div className="claim-meta">
-                      <span>대상: {claim.target}</span>
-                      <a href={`${selected.youtubeUrl}&t=${claim.seconds}s`} target="_blank" rel="noreferrer">
-                        {claim.timestamp}부터 보기
-                      </a>
-                    </div>
-                    <div className="evidence-box">
-                      <strong>근거</strong>
-                      <p>{claim.evidence}</p>
-                      {claim.conflict ? (
-                        <p className="conflict"><strong>충돌 주장</strong> {claim.conflict}</p>
-                      ) : null}
-                    </div>
-                  </div>
-                </article>
-              ))}
-            </div>
           </section>
         </aside>
       </main>
