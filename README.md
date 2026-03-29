@@ -27,7 +27,7 @@ npm run build
 ```
 
 ## 다음 단계
-- GitHub Actions로 Pages 배포 자동화
 - mock data를 실제 ingest 결과로 교체
 - claim clustering / topic trend 반영
 - 채널 팔로우 상태 저장
+- `docs/ingest-contract.md` 기준으로 JSON feed 연결

@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { filters, headlines } from './data'
+import { filters, headlines, marketSignals } from './data'
 
 function scoreTone(value: number) {
   if (value >= 80) return 'strong'
@@ -12,14 +12,16 @@ export default function App() {
   const [sort, setSort] = useState(filters.sort[0])
   const [grade, setGrade] = useState('전체')
   const [subject, setSubject] = useState('전체')
+  const [topic, setTopic] = useState<string | null>(null)
   const [followedOnly, setFollowedOnly] = useState(false)
 
   const filtered = useMemo(() => {
     const next = headlines.filter((item) => {
       const gradeOk = grade === '전체' || item.tags.includes(grade)
       const subjectOk = subject === '전체' || item.tags.includes(subject)
+      const topicOk = !topic || item.tags.includes(topic)
       const followOk = !followedOnly || item.followed
-      return gradeOk && subjectOk && followOk
+      return gradeOk && subjectOk && topicOk && followOk
     })
 
     const sorted = [...next]
@@ -34,7 +36,7 @@ export default function App() {
 
     sorted.sort(sorter)
     return sorted
-  }, [sort, grade, subject, followedOnly])
+  }, [sort, grade, subject, topic, followedOnly])
 
   const selected = filtered.find((item) => item.id === selectedId) ?? filtered[0] ?? headlines[0]
   const featured = headlines.filter((item) => item.featuredReason).slice(0, 2)
@@ -45,7 +47,7 @@ export default function App() {
         <div>
           <p className="eyebrow">Education YouTube Intelligence</p>
           <h1>교육 유튜브 인텔 대시보드</h1>
-          <p className="subcopy">영상 목록이 아니라, 지금 떠오르는 교육 주장과 변화만 빠르게 읽는 GitHub Pages 프로토타입.</p>
+          <p className="subcopy">영상 목록이 아니라, 지금 떠오르는 교육 주장과 변화만 빠르게 읽고 관심 있는 주장만 타임스탬프로 확인하는 GitHub Pages 프로토타입.</p>
         </div>
       </header>
 
@@ -81,8 +83,14 @@ export default function App() {
           </label>
         </div>
         <div className="tag-row">
-          {filters.topics.map((topic) => (
-            <span key={topic} className="tag ghost">#{topic}</span>
+          {filters.topics.map((item) => (
+            <button
+              key={item}
+              className={`tag-button ${topic === item ? 'active' : ''}`}
+              onClick={() => setTopic(topic === item ? null : item)}
+            >
+              #{item}
+            </button>
           ))}
         </div>
       </section>
@@ -116,6 +124,7 @@ export default function App() {
                 <div className="score-row">
                   <span className={`score ${scoreTone(item.scores.fresh)}`}>Fresh {item.scores.fresh}</span>
                   <span className={`score ${scoreTone(item.scores.valid)}`}>Valid {item.scores.valid}</span>
+                  <span className={`score ${scoreTone(item.scores.heat)}`}>Heat {item.scores.heat}</span>
                 </div>
               </button>
             ))}
@@ -145,6 +154,19 @@ export default function App() {
             </div>
           </section>
 
+          <section className="signal-grid">
+            {marketSignals.map((signal) => (
+              <article key={signal.title} className="signal-card card">
+                <h3>{signal.title}</h3>
+                <div className="tag-row compact">
+                  {signal.items.map((item) => (
+                    <span key={item} className="tag ghost">{item}</span>
+                  ))}
+                </div>
+              </article>
+            ))}
+          </section>
+
           <section className="detail card">
             <div className="section-title-row">
               <h2>핵심 주장</h2>
@@ -153,6 +175,9 @@ export default function App() {
             <div className="detail-head">
               <h3>{selected.headline}</h3>
               <p>{selected.dek}</p>
+              <div className="detail-actions">
+                <a href={selected.youtubeUrl} target="_blank" rel="noreferrer">영상 열기</a>
+              </div>
             </div>
             <div className="detail-meta">
               <span>채널 {selected.channel}</span>
@@ -171,7 +196,7 @@ export default function App() {
                     <p>{claim.summary}</p>
                     <div className="claim-meta">
                       <span>대상: {claim.target}</span>
-                      <a href={`https://www.youtube.com/watch?v=demo&t=${claim.seconds}s`} target="_blank" rel="noreferrer">
+                      <a href={`${selected.youtubeUrl}&t=${claim.seconds}s`} target="_blank" rel="noreferrer">
                         {claim.timestamp}부터 보기
                       </a>
                     </div>

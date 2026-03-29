@@ -23,6 +23,7 @@ export type HeadlineItem = {
   publishedAt: string
   tags: string[]
   followed: boolean
+  youtubeUrl: string
   scores: ScoreSet
   featuredReason?: string
   claims: Claim[]
@@ -35,6 +36,17 @@ export const filters = {
   topics: ['내신', '수능', '생기부', '순공시간', '독학', 'IB교육', '변화', '논쟁'],
 }
 
+export const marketSignals = [
+  {
+    title: '최근 급상승 키워드',
+    items: ['시험지 적응력', '순공시간 구조화', 'IB 서술형', '내신 실전패턴'],
+  },
+  {
+    title: '지금 논쟁 중인 주장',
+    items: ['선행 vs 시험지 적응', '순공시간 총량 vs 루틴 구조', 'IB 암기 vs 글쓰기 구조'],
+  },
+]
+
 export const headlines: HeadlineItem[] = [
   {
     id: '1',
@@ -44,6 +56,7 @@ export const headlines: HeadlineItem[] = [
     publishedAt: '2026-03-27',
     tags: ['고1', '수학', '내신', '변화'],
     followed: true,
+    youtubeUrl: 'https://www.youtube.com/watch?v=demo1',
     scores: { fresh: 82, valid: 77, heat: 88, controversy: 54 },
     featuredReason: '최근 내신 전략 변화 설명력이 높고 실제 적용도가 큰 영상',
     claims: [
@@ -82,6 +95,7 @@ export const headlines: HeadlineItem[] = [
     publishedAt: '2026-03-28',
     tags: ['고2', '독학', '순공시간', '논쟁'],
     followed: true,
+    youtubeUrl: 'https://www.youtube.com/watch?v=demo2',
     scores: { fresh: 76, valid: 73, heat: 80, controversy: 71 },
     featuredReason: '학생들이 가장 자주 오해하는 순공시간 담론을 잘 정리함',
     claims: [
@@ -119,6 +133,7 @@ export const headlines: HeadlineItem[] = [
     publishedAt: '2026-03-26',
     tags: ['IB', '영어', 'IB교육'],
     followed: false,
+    youtubeUrl: 'https://www.youtube.com/watch?v=demo3',
     scores: { fresh: 84, valid: 80, heat: 62, controversy: 44 },
     featuredReason: 'IB 관심층에게 실질적 전략을 제시하는 드문 영상',
     claims: [
