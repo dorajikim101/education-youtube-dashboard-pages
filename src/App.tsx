@@ -7,6 +7,10 @@ function scoreTone(value: number) {
   return 'soft'
 }
 
+function withTimestamp(url: string, seconds: number) {
+  return `${url}${url.includes('?') ? '&' : '?'}t=${seconds}s`
+}
+
 export default function App() {
   const [selectedId, setSelectedId] = useState(headlines[0].id)
   const [sort, setSort] = useState(filters.sort[0])
@@ -161,7 +165,7 @@ export default function App() {
                             <div className="claim-body">
                               <h4>
                                 {claim.title}{' '}
-                                <a className="inline-timestamp" href={`${item.youtubeUrl}&t=${claim.seconds}s`} target="_blank" rel="noreferrer">
+                                <a className="inline-timestamp" href={withTimestamp(item.youtubeUrl, claim.seconds)} target="_blank" rel="noreferrer">
                                   ({claim.timestamp})
                                 </a>
                               </h4>

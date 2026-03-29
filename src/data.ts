@@ -24,6 +24,7 @@ export type HeadlineItem = {
   tags: string[]
   followed: boolean
   youtubeUrl: string
+  channelUrl?: string
   scores: ScoreSet
   featuredReason?: string
   claims: Claim[]
@@ -56,7 +57,8 @@ export const headlines: HeadlineItem[] = [
     publishedAt: '2026-03-27',
     tags: ['대상:고1', '수학', '내신', '변화'],
     followed: true,
-    youtubeUrl: 'https://www.youtube.com/watch?v=demo1',
+    youtubeUrl: 'https://www.youtube.com/watch?v=VJalpqwZ4HU',
+    channelUrl: 'https://www.youtube.com/@ipduck_official',
     scores: { fresh: 82, valid: 77, heat: 88, controversy: 54 },
     featuredReason: '최근 내신 전략 변화 설명력이 높고 실제 적용도가 큰 영상',
     claims: [
@@ -95,7 +97,8 @@ export const headlines: HeadlineItem[] = [
     publishedAt: '2026-03-28',
     tags: ['대상:고2', '독학', '순공시간', '논쟁'],
     followed: true,
-    youtubeUrl: 'https://www.youtube.com/watch?v=demo2',
+    youtubeUrl: 'https://www.youtube.com/watch?v=KMn_WskD9n0',
+    channelUrl: 'https://www.youtube.com/@daegizatv',
     scores: { fresh: 76, valid: 73, heat: 80, controversy: 71 },
     featuredReason: '학생들이 가장 자주 오해하는 순공시간 담론을 잘 정리함',
     claims: [
@@ -133,7 +136,8 @@ export const headlines: HeadlineItem[] = [
     publishedAt: '2026-03-26',
     tags: ['대상:IB', '영어', 'IB교육'],
     followed: false,
-    youtubeUrl: 'https://www.youtube.com/@finemanlab',
+    youtubeUrl: 'https://www.youtube.com/watch?v=VJalpqwZ4HU',
+    channelUrl: 'https://www.youtube.com/@finemanlab',
     scores: { fresh: 84, valid: 80, heat: 62, controversy: 44 },
     featuredReason: '공부 전략형 채널 중 정보성 주장 구조를 테스트하기 좋은 초기 샘플',
     claims: [
