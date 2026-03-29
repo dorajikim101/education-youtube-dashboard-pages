@@ -106,7 +106,18 @@ export default function App() {
               const expanded = selectedId === item.id
               return (
                 <article key={item.id} className={`headline-card card ${expanded ? 'selected' : ''}`}>
-                  <button className="headline-button" onClick={() => setSelectedId(expanded ? '' : item.id)}>
+                  <div
+                    className="headline-button"
+                    role="button"
+                    tabIndex={0}
+                    onClick={() => setSelectedId(expanded ? '' : item.id)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault()
+                        setSelectedId(expanded ? '' : item.id)
+                      }
+                    }}
+                  >
                     <div className="headline-topline">
                       <span>{item.channel}</span>
                       <span>{item.publishedAt}</span>
@@ -129,7 +140,7 @@ export default function App() {
                       <span className={`score ${scoreTone(item.scores.valid)}`}>Valid {item.scores.valid}</span>
                       <span className={`score ${scoreTone(item.scores.heat)}`}>Heat {item.scores.heat}</span>
                     </div>
-                  </button>
+                  </div>
 
                   {expanded ? (
                     <div className="expanded-panel">
