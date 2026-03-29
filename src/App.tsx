@@ -17,7 +17,7 @@ export default function App() {
 
   const filtered = useMemo(() => {
     const next = headlines.filter((item) => {
-      const gradeOk = grade === '전체' || item.tags.includes(grade)
+      const gradeOk = grade === '전체' || item.tags.includes(`대상:${grade}`) || item.tags.includes(grade)
       const subjectOk = subject === '전체' || item.tags.includes(subject)
       const topicOk = !topic || item.tags.includes(topic)
       const followOk = !followedOnly || item.followed
@@ -162,7 +162,6 @@ export default function App() {
                               <h4>{claim.title}</h4>
                               <p>{claim.summary}</p>
                               <div className="claim-meta">
-                                <span>대상: {claim.target}</span>
                                 <a href={`${item.youtubeUrl}&t=${claim.seconds}s`} target="_blank" rel="noreferrer">
                                   {claim.timestamp}부터 보기
                                 </a>
