@@ -159,13 +159,13 @@ export default function App() {
                           <article key={claim.title} className="claim-card">
                             <div className="claim-order">0{index + 1}</div>
                             <div className="claim-body">
-                              <h4>{claim.title}</h4>
-                              <p>{claim.summary}</p>
-                              <div className="claim-meta">
-                                <a href={`${item.youtubeUrl}&t=${claim.seconds}s`} target="_blank" rel="noreferrer">
-                                  {claim.timestamp}부터 보기
+                              <h4>
+                                {claim.title}{' '}
+                                <a className="inline-timestamp" href={`${item.youtubeUrl}&t=${claim.seconds}s`} target="_blank" rel="noreferrer">
+                                  ({claim.timestamp})
                                 </a>
-                              </div>
+                              </h4>
+                              <p>{claim.summary}</p>
                               <div className="evidence-box">
                                 <strong>근거</strong>
                                 <p>{claim.evidence}</p>
