@@ -31,6 +31,7 @@ npm run build
 - 교육대기자TV
 - EBSi (교과 개념 설명 제외)
 - 공부의신 파인만
+- 조작가의 스몰빅클래스 (최신 실제 공개 영상 2개부터 시작)
 
 채널 seed 설정:
 - `config/channels.seed.json`
